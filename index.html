@@ -9,7 +9,11 @@
 		});
 	</script>
 	<style>
-
+		.result {
+			display: flex;
+			justify-content: center;
+			gap:10px;
+		}
 		.tersembunyi{
 			display: none;
 			visibility: hidden;
@@ -61,7 +65,7 @@
 										B2
 									</label>
 								</div>
-								<input type="button" name="tarung" class="button1" onclick="generateCombination();" value="Create Number">
+								<input type="button" name="tarung" style="--c:#ad5c00" class="button1" onclick="generateCombination();" value="Create Number">
 							</div>
 						</center>
 
@@ -69,7 +73,7 @@
 					<center>
 						<div id="showImages" style="display:none; max-width: 100%;">
 							<div>
-								<img src="assets/img.png" width="80%" alt="Image">
+								<img src="https://i.ibb.co/y5fcL8r/img.png" width="80%" alt="Image">
 								<br>
 								<br>
 							</div>
@@ -106,7 +110,6 @@
 						</div>
 						<br>
 						<textarea rows="6" name="inputString" id="inputString" class="formbold-form-inputt" required="required"></textarea>
-
 					</div>
 					<div class="formbold-input-flex">
 						<div>
@@ -122,7 +125,7 @@
 							</select>
 						</div>
 					</div><br>
-					<button type="button" class="button1" style="--c:#a31429" onclick="processInput()">Go !!!</button>
+					<button type="button" class="button1" style="--c:#ad5c00" onclick="processInput()">Go !!!</button>
 			</form>
 			<center>
 				<div>
@@ -141,129 +144,5 @@
 		
 	</div>
 	<script>
-        // Fungsi menghapus angka kembar
-        function removeTwin(inputs) {
-            var numbersArray = inputs;
-            var resultArray = numbersArray.map(function (number) {
-                var uniqueDigits = [...new Set(number)];
-                return uniqueDigits.length === number.length ? number : '';
-            });
-            resultArray = resultArray.filter(Boolean);
-            var resultString = resultArray.join(':');
-            return resultArray;
-        }
-
-        function processInput() {
-            // Ambil nilai dari textarea
-            var inputText = document.getElementById("inputString").value;
-
-            // Pecah input menjadi array berdasarkan delimiter ":"
-            var inputArray = inputText.split(' : ');
-			var filteredArray = inputArray.filter(function(element) {
-				return element !== " ";
-			});
-            // Ambil nilai dari checkbox
-            var runTwinDigitsCheck = document.getElementById("removetwin").checked;
-
-            // Jika checkbox checked, lakukan pengecekan twin digits dan hapus jika ditemukan
-            if (runTwinDigitsCheck) {
-                var filteredArray = removeTwin(inputArray);
-				var statusTwin = "No Twin";
-            } else {
-            	var filteredArray = inputArray;
-				var statusTwin = "Twin";
-            }
-
-             // Ambil nilai dari dropdown select
-            var selectedGroup = document.getElementById("selected_group").value;
-
-            // Definisikan grup-grup
-            var groupA = [1, 2, 3, 4, 5, 6, 13, 14, 15, 16, 17, 18, 25, 26, 27, 28, 29, 30, 37, 38, 39, 40, 41, 42];
-            var groupB = [49, 50, 51, 52, 53, 54, 61, 62, 63, 64, 65, 66, 73, 74, 75, 76, 77, 78, 85, 86, 87, 88, 89, 90, 97, 98, 99, 0];
-            var groupC = [7, 8, 9, 10, 11, 12, 19, 20, 21, 22, 23, 24, 31, 32, 33, 34, 35, 36, 43, 44, 45, 46, 47, 48];
-            var groupD = [55, 56, 57, 58, 59, 60, 67, 68, 69, 70, 71, 72, 79, 80, 81, 82, 83, 84, 91, 92, 93, 94, 95, 96];
-
-            // Lakukan pengecekan dan hapus angka terakhir jika memenuhi kondisi
-            splittedArray = filteredArray.filter(function (value) {
-                var lastTwoDigits = parseInt(value.slice(-2), 10);
-
-                if (selectedGroup === "A" && groupA.includes(lastTwoDigits)) {
-                    return false;
-                } else if (selectedGroup === "B" && groupB.includes(lastTwoDigits)) {
-                    return false;
-                } else if (selectedGroup === "C" && groupC.includes(lastTwoDigits)) {
-                    return false;
-                } else if (selectedGroup === "D" && groupD.includes(lastTwoDigits)) {
-                    return false;
-                }
-
-                return true;
-            });
-
-            // Gabungkan hasil ke dalam string dan tampilkan
-            var resultText = splittedArray.join('*');
-			document.getElementById("status-twin").textContent = statusTwin; 
-			document.getElementById("title-result").textContent = "Total Result :" + splittedArray.length; 
-
-			createTable(splittedArray);
-			
-			var cpyres = document.getElementById("textToCopy");
-			readyToCopy = splittedArray.join('*');
-			
-			var cpybtn = document.getElementById("status-twin");
-			createCopyButton(cpybtn);
-		}
-
-		// Function to create and append the copy button
-		function createCopyButton(divv) {
-			// Create a button element
-			var copyButton = document.createElement("button");
-			copyButton.innerText = "Copy";
-			copyButton.classList.add('copy-button');
-			copyButton.setAttribute("type", "button");
-			copyButton.addEventListener("click", copytextnow); // Attach the copy function to the button
-
-			// Append the button to the body or any other container element
-			divv.appendChild(copyButton);
-		}
-
-		function copytextnow() {
-			var isi = readyToCopy;
-			var temp = document.createElement("textarea");
-			temp.value = isi;
-			document.body.appendChild(temp);
-			temp.select();
-			document.execCommand("copy");
-			document.body.removeChild(temp);
-			alert("Teks berhasil disalin: " + temp.value);
-		}
-
-		// Fungsi untuk membuat tabel dari array
-		function createTable(dataArray) {
-		// Get a reference to the div where the table will be inserted
-            var tableContainer = document.getElementById("outputTable");
-
-            // Create the table HTML string
-            var tableHTML = "<table class='divtable'>";
-
-            // Populate the table with data
-            for (var i = 0; i < dataArray.length; i++) {
-                if (i % 10 === 0) {
-                    // Start a new row after every 10 columns
-                    tableHTML += "<tr>";
-                }
-
-                tableHTML += "<td>" + dataArray[i] + "</td>";
-
-                if (i % 10 === 9 || i === dataArray.length - 1) {
-                    // End the row after every 10 columns or at the end of the array
-                    tableHTML += "</tr>";
-                }
-            }
-
-            tableHTML += "</table>";
-
-            // Set the innerHTML of the container to the table HTML
-            tableContainer.innerHTML = tableHTML;
-		}
+        
     </script>
