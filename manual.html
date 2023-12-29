@@ -46,5 +46,50 @@ $isi = isset($_POST['inputString']) ? $_POST['inputString'] : '';
     var textarea = document.getElementById('data');
     textarea.value = myVariable;  
 
+function gas400(){
+    var inputTextarea = document.getElementById('data');
+    var inputText = inputTextarea.value.trim(); // Remove leading/trailing whitespaces
+    var delimiter = ' : ';
+    var maxCombinationsPerTextarea = 400;
 
+    var outputContainer = document.getElementById('respons');
+    outputContainer.innerHTML = ''; // Clear previous output
+
+    var combinations = inputText.split(delimiter);
+
+    while (combinations.length > 0) {
+    var chunk = combinations.splice(0, maxCombinationsPerTextarea);
+    var index = outputContainer.childElementCount / 3 + 1;
+
+    var info = document.createElement('p');
+    info.innerHTML = 'Set angka ke-' + index + ' Jumlah ' + chunk.length + ' Angka';
+    outputContainer.appendChild(info);
+
+    // Add textarea output
+    var outputTextarea = document.createElement('textarea');
+    outputTextarea.value = addDelimiter(chunk.join('*'), ' : ');
+    outputTextarea.classList.add('formbold-form-inputt');
+    outputTextarea.setAttribute('rows', '6');
+    outputContainer.appendChild(outputTextarea);
+
+    // Add copy button
+    var copyButton = document.createElement('button');
+    copyButton.innerHTML = 'Copy';
+    copyButton.classList.add('copy-button');
+    copyButton.setAttribute("type", "button");
+    // Pass the index as a parameter to the copyToClipboard function
+    copyButton.addEventListener('click', copyToClipboard.bind(null, outputTextarea, index));
+    outputContainer.appendChild(copyButton);
+
+    }
+}
+
+function addDelimiter(text, delimiter) {
+    return text.replace(new RegExp(delimiter, 'g'), delimiter + ' ');
+}
+
+function copyToClipboard(element, index) {
+    element.select();
+    document.execCommand('copy');
+}
 </script>
