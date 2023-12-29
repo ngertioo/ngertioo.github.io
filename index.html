@@ -1,0 +1,261 @@
+<html>
+<head>
+	<title>Generator</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="assets/js.js"></script>
+	<script> 
+		$(function(){
+		$("#includedContent").load("header.html"); 
+		});
+	</script>
+	<style>
+		.result {
+			display: flex;
+			justify-content: center;
+			gap:10px;
+		}
+		.tersembunyi{
+			display: none;
+			visibility: hidden;
+		}
+	</style> 
+</head>
+<body onload="startFunction()">
+	<div id="includedContent"></div>
+	<div class="formbold-main-wrapper" >
+		<div class="login-form">
+			<form>
+				<div class="formbold-mb-3">
+					<div>
+						<input type="text" name="D" class="formbold-form-inputt" id="num4">
+						<input type="text" name="C" class="formbold-form-inputt" id="num3">
+						<input type="text" name="B" class="formbold-form-inputt" id="num2">
+						<input type="text" name="A" class="formbold-form-inputt" id="num1">
+						<center>
+							<div class="formbold-form-wrapper">
+								<div class="checkbox-wrapper-27">
+									<label class="checkbox">
+										<input type="checkbox" value="4" id="digit4">
+										<span class="checkbox__icon"></span>
+										4
+									</label>
+									<label class="checkbox">
+										<input type="checkbox" value="3" id="digit3">
+										<span class="checkbox__icon"></span>
+										3
+									</label>
+									<label class="checkbox">
+										<input type="checkbox" value="2" id="digit2">
+										<span class="checkbox__icon"></span>
+										2
+									</label>
+									<label class="checkbox">
+										<input type="checkbox" value="44" id="bb4">
+										<span class="checkbox__icon"></span>
+										B4
+									</label>
+									<label class="checkbox">
+										<input type="checkbox" value="33" id="bb3">
+										<span class="checkbox__icon"></span>
+										B3
+									</label>
+									<label class="checkbox">
+										<input type="checkbox" value="22" id="bb2">
+										<span class="checkbox__icon"></span>
+										B2
+									</label>
+								</div>
+								<input type="button" name="tarung" style="--c:#ad5c00" class="button1" onclick="generateCombination();" value="Create Number">
+							</div>
+						</center>
+
+					</div>
+					<center>
+						<div id="showImages" style="display:none; max-width: 100%;">
+							<div>
+								<img src="assets/img.png" width="80%" alt="Image">
+								<br>
+								<br>
+							</div>
+							<!-- <div>
+								<div id="loadnumber"></div>
+								<div id="loading">
+									<div class="spinner"></div>
+								</div>
+							</div> -->
+						</div>
+
+					</center><br>
+
+					<div class="formbold-mb-3">
+
+						<div class="formbold-input-flex">
+							<div>
+								<label for="message" class="formbold-form-labell">Data Number</label>
+							</div>
+							<div>
+								<div class="checkbox-wrapper-27">
+									<label class="checkbox">
+										<input type="checkbox" id="removetwin" name="removetwin" class="value1" value="1" checked="checked">
+										<span class="checkbox__icon"> </span>
+										Remove Twin
+									</label><br>
+									<label class="checkbox">
+										<input type="checkbox" id="helper" name="showImages" class="value1" value="1">
+										<span class="checkbox__icon"> </span>
+										Helper
+									</label>
+								</div>
+							</div>
+						</div>
+						<br>
+						<textarea rows="6" name="inputString" id="inputString" class="formbold-form-inputt" required="required"></textarea>
+					</div>
+					<div class="formbold-input-flex">
+						<div>
+							<button type="button" class="formbold-btnside" onclick="autoFillTextArea()">00-99</button>
+						</div>
+						<div>
+							<select class="formbold-form-inputt" name="selected_group" id="selected_group">
+								<option value="nol">No Split</option>
+								<option value="A">1 Top Left</option>
+								<option value="B">2 Top Right</option>
+								<option value="C">3 Bottom Left</option>
+								<option value="D">4 Bottom Right</option>
+							</select>
+						</div>
+					</div><br>
+					<button type="button" class="button1" style="--c:#ad5c00" onclick="processInput()">Go !!!</button>
+			</form>
+			<center>
+				<div>
+					<div class="result" id="title-result"></div>
+					<div class="result" id="status-twin"></div>
+					<div id="copyarea">
+						
+					</div>
+					<textarea class="tersembunyi" id="textToCopy"></textarea>
+					<table class="divtable" id="outputTable"></table>
+				</div>
+			</center>
+			
+				
+		</div>
+		
+	</div>
+	<script>
+        function removeTwin(inputs) {
+            var numbersArray = inputs;
+            var resultArray = numbersArray.map(function (number) {
+                var uniqueDigits = [...new Set(number)];
+                return uniqueDigits.length === number.length ? number : '';
+            });
+            resultArray = resultArray.filter(Boolean);
+            var resultString = resultArray.join(':');
+            return resultArray;
+        }
+
+        function processInput() {
+            var inputText = document.getElementById("inputString").value;
+			if(inputText === ''){
+				pesan = 'No No';
+				document.getElementById('title-result').textContent = pesan;
+			}else{
+            var inputArray = inputText.split(' : ');
+			var filteredArray = inputArray.filter(function(element) {
+				return element !== " ";
+			});
+            var runTwinDigitsCheck = document.getElementById("removetwin").checked;
+			if (runTwinDigitsCheck) {
+                var filteredArray = removeTwin(inputArray);
+				var statusTwin = "No Twin";
+            } else {
+				var filteredArray = inputArray;
+				var statusTwin = "Twin";
+            }
+
+            var selectedGroup = document.getElementById("selected_group").value;
+
+            var groupA = [1, 2, 3, 4, 5, 6, 13, 14, 15, 16, 17, 18, 25, 26, 27, 28, 29, 30, 37, 38, 39, 40, 41, 42];
+            var groupB = [49, 50, 51, 52, 53, 54, 61, 62, 63, 64, 65, 66, 73, 74, 75, 76, 77, 78, 85, 86, 87, 88, 89, 90, 97, 98, 99, 0];
+            var groupC = [7, 8, 9, 10, 11, 12, 19, 20, 21, 22, 23, 24, 31, 32, 33, 34, 35, 36, 43, 44, 45, 46, 47, 48];
+            var groupD = [55, 56, 57, 58, 59, 60, 67, 68, 69, 70, 71, 72, 79, 80, 81, 82, 83, 84, 91, 92, 93, 94, 95, 96];
+
+            splittedArray = filteredArray.filter(function (value) {
+                var lastTwoDigits = parseInt(value.slice(-2), 10);
+
+                if (selectedGroup === "A" && groupA.includes(lastTwoDigits)) {
+                    return false;
+                } else if (selectedGroup === "B" && groupB.includes(lastTwoDigits)) {
+                    return false;
+                } else if (selectedGroup === "C" && groupC.includes(lastTwoDigits)) {
+                    return false;
+                } else if (selectedGroup === "D" && groupD.includes(lastTwoDigits)) {
+                    return false;
+                }
+                return true;
+            });
+
+            var resultText = splittedArray.join('*');
+			totalResult = splittedArray.length;
+			document.getElementById("status-twin").textContent = statusTwin; 
+			document.getElementById("title-result").textContent = "Total Result :" + totalResult; 
+
+			createTable(splittedArray);
+			
+			var cpyres = document.getElementById("textToCopy");
+			readyToCopy = splittedArray.join('*');
+			
+			var cpybtn = document.getElementById("status-twin");
+			createCopyButton(cpybtn, 'Copy', copytextnow);
+			if(totalResult > 400){
+				createCopyButton(cpybtn, 'Manual', goManual);
+			}
+		}
+		}
+
+		function createCopyButton(divv, names, fnct) {
+			var copyButton = document.createElement("button");
+			copyButton.innerText = names;
+			copyButton.classList.add('copy-button');
+			copyButton.setAttribute("type", "button");
+			copyButton.addEventListener("click", fnct); // Attach the copy function to the button
+			divv.appendChild(copyButton);
+		}
+
+		function goManual(){
+			var data = document.getElementById("inputString").value;
+			localStorage.setItem('myVariable', data);
+
+			// Redirect to receiver page
+			window.location.href = 'manual.html';
+		}
+
+		function copytextnow() {
+			var isi = readyToCopy;
+			var temp = document.createElement("textarea");
+			temp.value = isi;
+			document.body.appendChild(temp);
+			temp.select();
+			document.execCommand("copy");
+			document.body.removeChild(temp);
+			alert("Copied Text: " + temp.value);
+		}
+
+		function createTable(dataArray) {
+			var tableContainer = document.getElementById("outputTable");
+            var tableHTML = "<table class='divtable'>";
+
+            for (var i = 0; i < dataArray.length; i++) {
+                if (i % 10 === 0) {
+                    tableHTML += "<tr>";
+                }
+                tableHTML += "<td>" + dataArray[i] + "</td>";
+                if (i % 10 === 9 || i === dataArray.length - 1) {
+                    tableHTML += "</tr>";
+                }
+            }
+            tableHTML += "</table>";
+            tableContainer.innerHTML = tableHTML;
+		}
+    </script>
