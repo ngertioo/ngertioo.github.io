@@ -5,7 +5,7 @@
     background-color : rgba(0, 0, 0, 0.65);
     margin: 20px 0 100px 0;
     padding: 30px 20px 20px 20px;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-style: 20px soldd rgba(255, 255, 255, 0.5)
 }
@@ -116,7 +116,7 @@ body {
 	font-family: 'Open Sans', sans-serif;
 	/* background: rgb(131,48,74);
 	background: linear-gradient(90deg, rgba(131,48,74,1) 0%, rgba(72,0,117,1) 47%, rgba(12,79,121,1) 100%); */
-	background-image: url("img.png");
+	background-image: url("bg.jpg");
 	background-attachment: fixed;
 	background-size: cover;
 	 margin:0;
