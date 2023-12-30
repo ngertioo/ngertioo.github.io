@@ -76,8 +76,7 @@
 						<div id="showImages" style="display:none; max-width: 100%;">
 							<div>
 								<img src="assets/img.png" width="80%" alt="Image">
-								<br>
-								<br>
+								<br><br>
 							</div>
 							<!-- <div>
 								<div id="loadnumber"></div>
@@ -108,13 +107,13 @@
 									</label>
 								</div>
 							</div>
-						</div><br>
+						</div>
 						</center>
 						<textarea rows="4" name="inputString" id="inputString" class="formbold-form-inputt" required="required"></textarea>
 					</div>
 					<div class="formbold-input-flex">
 						<div>
-							<button type="button" class="formbold-btnside" onclick="autoFillTextArea()">00-99</button>
+							<button type="button" style="--c:#ad5c00" class="button1" onclick="autoFillTextArea()">00-99</button>
 						</div>
 						<div>
 							<select class="formbold-form-inputt" name="selected_group" id="selected_group">
@@ -136,7 +135,7 @@
 						
 					</div>
 					<textarea class="tersembunyi" id="textToCopy"></textarea>
-					<table class="divtable" id="outputTable"></table>
+					<table id="outputTable"></table>
 				</div>
 			</center>
 			
@@ -248,7 +247,7 @@
 
 		function createTable(dataArray) {
 			var tableContainer = document.getElementById("outputTable");
-            var tableHTML = "<table class='divtable'>";
+            var tableHTML = "<table>";
 
             for (var i = 0; i < dataArray.length; i++) {
                 if (i % 10 === 0) {
