@@ -21,11 +21,6 @@
 		body {
 			justify-content: center;
 		}
-
-		.outputTable{
-		width:100%;
-		display: block;
-		}
 	</style> 
 </head>
 <body onload="startFunction()">
@@ -72,7 +67,7 @@
 										<span class="checkbox__icon"></span>
 										B2
 									</label>
-								</div><br>
+								</div>
 								<input type="button" name="tarung" style="--c:#ad5c00" class="button1" onclick="generateCombination();" value="Create Number">
 							</div>
 						</center>
@@ -140,7 +135,7 @@
 						
 					</div>
 					<textarea class="tersembunyi" id="textToCopy"></textarea>
-					<div class="outputTable" id="outputTable"></div>
+					<table id="outputTable"></table>
 				</div>
 			</center>
 			
@@ -251,6 +246,17 @@
 		}
 
 		function createTable(dataArray) {
+			var strdt = dataArray[0];
+			var ldt = strdt.length;
+			if(ldt === 4){
+				size = '11px';
+			} else if (ldt === 3){
+				size = '13px';
+			} else if (ldt === 2){
+				size = '22px';
+			}
+
+
 			var tableContainer = document.getElementById("outputTable");
             var tableHTML = "<table>";
 
@@ -258,7 +264,7 @@
                 if (i % 10 === 0) {
                     tableHTML += "<tr>";
                 }
-                tableHTML += "<td>" + dataArray[i] + "</td>";
+                tableHTML += "<td style='font-size: "+size+";''>" + dataArray[i] + "</td>";
                 if (i % 10 === 9 || i === dataArray.length - 1) {
                     tableHTML += "</tr>";
                 }
