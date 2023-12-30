@@ -110,13 +110,14 @@
             <div class="formbold-mb-3">
                 <div class="formbold-input-flex">
                     <div>
-                        <input type="text" name="dailyInput" maxlength="4" class="formbold-form-inputt" id="dailyInput">
+                        <input type="text" name="dailyInput" maxlength="4" pattern="\d{4,}" class="formbold-form-inputt" id="dailyInput">
                     </div>
 
                     <div>
-                        <button type="button" class="glow-on-hover" onclick="dailyCetak()">Submit</button>
+                        <button type="button" class="glow-on-hover" onclick="validasiInput()">Submit</button>
                     </div>
                 </div><br>
+                <div id="validasi"></div>
                 <div id="hidden-div">
                     <div class="formbold-input-flex" >
                         <div>
@@ -161,6 +162,17 @@
     </div>
 </div>
 <script>
+    function validasiInput(){
+        inp = document.getElementById("dailyInput").value;
+        document.getElementById("validasi").textContent = "";
+        if(inp.length < 4){
+            document.getElementById("validasi").textContent = "Error Occured";
+        }else{
+            window.load
+            dailyCetak();
+        }
+    }
+
     function goManual(){
         var data = document.getElementById("inputString").value;
 			localStorage.setItem('myVariable', data);
