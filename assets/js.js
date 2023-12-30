@@ -268,7 +268,6 @@ $(document).ready(function() {
 // End JS For Manual
 
 // Start for Daily
-
 function dailyCetak() {
     
 
@@ -284,7 +283,6 @@ function dailyCetak() {
     var totals = "";
     // Ambil nilai dari elemen input
     var inputText = document.getElementById("dailyInput").value;
-
     // Memisahkan masing-masing karakter dari inputText dan mengonversi ke dalam array
     var inputArray = inputText.split("").map(Number);
     var intvl = 120;
