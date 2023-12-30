@@ -218,6 +218,7 @@
 			var copyButton = document.createElement("button");
 			copyButton.innerText = names;
 			copyButton.classList.add('copy-button');
+			copyButton.id = "copy-button";
 			copyButton.setAttribute("type", "button");
 			copyButton.addEventListener("click", fnct); // Attach the copy function to the button
 			divv.appendChild(copyButton);
@@ -234,12 +235,14 @@
 		function copytextnow() {
 			var isi = readyToCopy;
 			var temp = document.createElement("textarea");
+			var change = document.getElementById("copy-button"); 
 			temp.value = isi;
 			document.body.appendChild(temp);
 			temp.select();
 			document.execCommand("copy");
 			document.body.removeChild(temp);
-			alert("Copied Text: " + temp.value);
+			//alert("Copied Text: " + temp.value);
+			change.innerText = 'Copied';
 		}
 
 		function createTable(dataArray) {
