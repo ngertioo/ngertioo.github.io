@@ -375,7 +375,7 @@ div.exp {
  
 .table1, th, td {
     border: 1px solid #999;
-    padding: 3px 5px;
+    /*padding: 3px 5px;*/
 }
 
 .checkbox-wrapper-27 .checkbox {
