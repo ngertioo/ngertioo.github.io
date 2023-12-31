@@ -1,0 +1,38 @@
+<html>
+<head>
+    <title>Manual</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/js.js"></script>
+</head>
+<script> 
+    $(function(){
+    $("#includedContent").load("header.html"); 
+    });
+</script> 
+<body>
+    <div id="includedContent"></div>
+    <div class="formbold-main-wrapper">
+        <div class="login-form">
+            <form action="" method="POST" id="dataForm">
+                <div class="formbold-mb-3">
+                    <div class="formbold-input-flex">
+                        <div>
+                            <label for="message" class="formbold-form-labell">Data Number</label>
+                        </div>
+                    </div>
+                    <textarea rows="6" name="data" id="data" class="formbold-form-inputt" required="required"></textarea><br><br>
+                    <button type="button" class="button1" style="--c:#ad5c00" onclick="parseString()">Gooo !!!</button>
+            </form>
+            <br><br>
+            <div id="respons"></div>
+        </div>
+    </div>
+<script>
+function parseString() {
+    var stringInput = document.getElementById('data').value;
+    var arrayAngka = stringInput.match(/\d+/g).map(Number);
+    hasil = arrayAngka.join(",");
+
+    document.getElementById("respons").innerText = "Hasil : "+ arrayAngka.length;
+}
+</script>
