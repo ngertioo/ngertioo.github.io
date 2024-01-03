@@ -11,7 +11,7 @@
 
         .cells {
             padding: 5px;
-            font-size: 15px;
+            font-size: 18px;
         }
         .check-hapus{
             margin-top: 10px;
@@ -51,7 +51,15 @@
                             </label>
                         </div>
                     </div>
-                    <button type="button" class="button1" style="--c:#ad5c00" onclick="parseString()">Check Now</button>
+                    <div class="formbold-input-flex">
+                        <div>
+                            <button type="button" class="button1" style="--c:#ad5c00" onclick="parseString()">Check Now</button>
+                        </div>
+                        <div>
+                            <button type="button" class="button1" style="--c:#ad5c00" onclick="clearAll()">Clear</button>
+                        </div>
+                    </div>
+                    
             </form>
             <br><br>
             <textarea class="formbold-form-inputt" rows="10" id="respons" hidden></textarea>
@@ -64,6 +72,10 @@
         </div>
     </div>
 <script>
+function clearAll(){
+    document.getElementById('data').value = "";
+}
+
 function parseString() {
     var stringInput = document.getElementById('data').value;
     var arrayAngka = stringInput.match(/\d+/g).map(function (numberString) {
