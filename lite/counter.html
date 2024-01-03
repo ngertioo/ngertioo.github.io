@@ -11,11 +11,16 @@
 
         .cells {
             padding: 5px;
-            font-size: 15px;
+            font-size: 18px;
         }
         .check-hapus{
-            margin-top: 8px;
+            margin-top: 10px;
             transform: scale(1.16);
+        }
+        .paste-button{
+            width: 100px;
+            padding: 3px 2px;
+            border-radius: 5px;
         }
     </style>
 <script> 
@@ -29,10 +34,9 @@
         <div class="login-form">
             <form action="" method="POST" id="dataForm">
                 <div class="formbold-mb-3">
-                    <div class="formbold-input-flex">
-                        <div>
-                            <label for="message" class="formbold-form-labell">Counter</label>
-                        </div>
+                    <div class="formbold-input-flex">                  
+                        <label for="message" class="formbold-form-labell">Counter</label>
+                        <button type="button" class="paste-button" style="--c:#ad5c00" onclick="pasteText()">Paste</button>
                     </div>
                     <textarea rows="6" name="data" id="data" class="formbold-form-inputt" required="required"></textarea><br><br>
                     <div class="formbold-input-flex">
@@ -45,7 +49,7 @@
                         </div>
                         <div>
                             <label class="checkbox">
-                                <input type="checkbox" class="check-hapus" value="hapus" id="hapus">
+                                <input type="checkbox" class="check-hapus" value="hapus" id="hapus" checked>
                                 <span class="checkbox__icon"></span>
                                 Hapus Angka Ke-5
                             </label>
@@ -72,6 +76,18 @@
         </div>
     </div>
 <script>
+function pasteText() {
+    var textarea = document.getElementById("data");
+
+    navigator.clipboard.readText().then(function(clipText) {
+    // Prevent the default behavior of pasting
+    event.preventDefault();
+
+    // Do something with the pasted text (e.g., insert it into the textarea)
+    textarea.value += clipText;
+    });
+}
+
 function clearAll(){
     document.getElementById('data').value = "";
 }
