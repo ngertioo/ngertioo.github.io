@@ -217,11 +217,12 @@
 			
 			var cpybtn = document.getElementById("status-twin");
 			createCopyButton(cpybtn, 'Copy', copytextnow);
+			var copyButtonsContainer = document.getElementById('copyMore400');
+			copyButtonsContainer = "";
 			if(totalResult > 400){
 				// createCopyButton(cpybtn, 'Manual', goManual);
 				// Create Copy per 400
 				var maxCombinations = 400;
-				var copyButtonsContainer = document.getElementById('copyMore400');
 
 				// Membagi data array ke dalam kelompok-kelompok sesuai dengan batas maksimum
 				for (var i = 0; i < urut.length; i += maxCombinations) {
