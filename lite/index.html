@@ -218,7 +218,7 @@
 			var cpybtn = document.getElementById("status-twin");
 			createCopyButton(cpybtn, 'Copy', copytextnow);
 			var copyButtonsContainer = document.getElementById('copyMore400');
-			copyButtonsContainer = "";
+			copyButtonsContainer.innerHTML = "";
 			if(totalResult > 400){
 				// createCopyButton(cpybtn, 'Manual', goManual);
 				// Create Copy per 400
