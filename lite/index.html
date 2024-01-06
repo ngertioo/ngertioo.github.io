@@ -17,6 +17,7 @@
 			display: flex;
 			justify-content: center;
 			gap:10px;
+			padding:5px;
 		}
 		.tersembunyi{
 			display: none;
@@ -139,6 +140,7 @@
 						
 					</div>
 					<textarea class="tersembunyi" id="textToCopy"></textarea>
+					<div id="copyMore400" class="result"></div>
 					<table id="outputTable"></table>
 				</div>
 			</center>
@@ -216,10 +218,44 @@
 			var cpybtn = document.getElementById("status-twin");
 			createCopyButton(cpybtn, 'Copy', copytextnow);
 			if(totalResult > 400){
-				createCopyButton(cpybtn, 'Manual', goManual);
+				// createCopyButton(cpybtn, 'Manual', goManual);
+				// Create Copy per 400
+				var maxCombinations = 400;
+				var copyButtonsContainer = document.getElementById('copyMore400');
+
+				// Membagi data array ke dalam kelompok-kelompok sesuai dengan batas maksimum
+				for (var i = 0; i < urut.length; i += maxCombinations) {
+					var buttonData = urut.slice(i, i + maxCombinations);
+					
+					// Definisikan indeks
+					var indexButton = buttonData.length;
+
+					// Membuat tombol copy
+					var copyButton = document.createElement('button');
+					copyButton.textContent = `Copy ${indexButton}`;
+					copyButton.classList.add('copy-button');
+					copyButton.setAttribute("type", "button");
+					copyButton.addEventListener('click', function() {
+						copyToClipboardPer400(buttonData.join('*'));
+					});
+					
+					// Menambahkan tombol copy ke dalam kontainer
+					copyButtonsContainer.appendChild(copyButton);
+				}
 			}
 		}
 		}
+
+		// Fungsi untuk menyalin teks ke clipboard
+        function copyToClipboardPer400(text) {
+            var textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+			alert('Text Copied');
+        }
 
 		function createCopyButton(divv, names, fnct) {
 			var copyButton = document.createElement("button");
