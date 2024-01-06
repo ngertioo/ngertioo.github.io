@@ -165,7 +165,9 @@
 				pesan = 'No No';
 				document.getElementById('title-result').textContent = pesan;
 			}else{
-            var inputArray = inputText.split(' : ');
+            var inputArray = inputText.match(/\d+/g).map(function (numberString) {
+			return Number(numberString).toString().padStart(numberString.length, '0');
+			});
 			var filteredArray = inputArray.filter(function(element) {
 				return element !== "";
 			});
