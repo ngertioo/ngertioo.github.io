@@ -1,0 +1,110 @@
+<html>
+<head>
+    <title>Manual</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="assets/js.js"></script>
+</head>
+<style>
+        .red-text {
+            color: red;
+        }
+
+        .cells {
+            padding: 5px;
+            font-size: 18px;
+        }
+        .check-hapus{
+            margin-top: 10px;
+            transform: scale(1.16);
+        }
+        .paste-button{
+            width: 100px;
+            padding: 3px 2px;
+            border-radius: 5px;
+        }
+    </style>
+<script> 
+    $(function(){
+    $("#includedContent").load("header.html"); 
+    });
+</script> 
+<body>
+    <div id="includedContent"></div>
+    <div class="formbold-main-wrapper">
+        <div class="login-form">
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Pools</th>
+                        <th>Result</th>
+                        <th>Twin</th>
+                        <th>Time</th>
+                        <!-- <th>Contains "123"</th> -->
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</body>
+<script>
+var dataArray; // Declare a global variable to store the fetched data
+
+function fetchData() {
+    var xhr = new XMLHttpRequest();
+    
+    // Replace 'your_api_endpoint_here' with the actual API endpoint
+    xhr.open('GET', 'assets/api.php?ajax=full', true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            // Parse the JSON response and store it in the global variable
+            dataArray = JSON.parse(xhr.responseText);
+
+            // Call a function or do something with the data
+            processData();
+        }
+    };
+
+    xhr.send();
+}
+
+function processData() {
+    // Access the global variable globalData here
+    // console.log('Fetched Data:', globalData);
+    // You can perform further processing or use the data as needed
+    var tableBody = document.querySelector('#data-table tbody');
+
+    dataArray.forEach(function(data) {
+        // Check if the postal code has twin digits at the end
+        var isTwin = /\d(\d)\1$/.test(data.angka);
+        var twinIndicator = isTwin ? 'Yes' : '';
+
+        // Convert timestamp to HH:MM:SS format
+        var timestamp = data.tanggal * 1000 + 1198; // Assuming data.tanggal is in seconds
+        var date = new Date(timestamp);
+        var formattedTime = date.toLocaleTimeString([], { hour12: false });
+
+        // Check if the entire postal code contains "123"
+        var contains123 = /\d*1\d*3\d*/.test(data.angka);
+        var contains123Indicator = contains123 ? 'Yes' : 'No';
+
+        // Create a new row in the table
+        var row = tableBody.insertRow();
+        row.insertCell(0).textContent = data.pasar;
+        row.insertCell(1).textContent = data.angka;
+        row.insertCell(2).textContent = isTwin ? twinIndicator : '';
+        row.insertCell(3).textContent = data.tanggal;
+        //row.insertCell(4).textContent = contains123Indicator;
+
+        // Add red-text class to the cell if it's a twin
+        if (isTwin) {
+            row.cells[1].classList.add('red-text');
+        }
+    });
+}
+
+// Call the function to initiate the XMLHttpRequest
+fetchData();
+
+</script>
